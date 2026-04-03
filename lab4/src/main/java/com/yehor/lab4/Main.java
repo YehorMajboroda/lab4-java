@@ -1,38 +1,83 @@
 package com.yehor.lab4;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Введіть кількість речей: ");
-        int n = scanner.nextInt();
-        scanner.nextLine(); // очищення буфера
+        Scanner scanner = new Scanner(System.in, "UTF-8");
+        ArrayList<Clothes> list = new ArrayList<>();
 
-        Clothes[] clothesArray = new Clothes[n];
+        while (true) {
+            System.out.println("\n===== МЕНЮ =====");
+            System.out.println("1 - Додати річ");
+            System.out.println("2 - Показати всі речі");
+            System.out.println("0 - Вийти");
 
-        for (int i = 0; i < n; i++) {
-            System.out.println("\nВведіть дані для речі #" + (i + 1));
-            System.out.print("Назва: ");
-            String name = scanner.nextLine();
+            System.out.print("Ваш вибір: ");
+            String input = scanner.nextLine();
 
-            System.out.print("Розмір: ");
-            String size = scanner.nextLine();
+            int choice;
 
-            System.out.print("Колір: ");
-            String color = scanner.nextLine();
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Помилка: введіть число!");
+                continue;
+            }
 
-            System.out.print("Ціна: ");
-            double price = scanner.nextDouble();
-            scanner.nextLine(); // очищення буфера
+            if (choice == 1) {
+                try {
+                    System.out.print("Назва: ");
+                    String name = scanner.nextLine();
 
-            clothesArray[i] = new Clothes(name, size, color, price);
-        }
+                    System.out.print("Розмір: ");
+                    String size = scanner.nextLine();
 
-        System.out.println("\nСписок речей:");
-        for (Clothes c : clothesArray) {
-            System.out.println(c);
+                    System.out.print("Колір: ");
+                    String color = scanner.nextLine();
+
+                    System.out.print("Ціна: ");
+                    double price = Double.parseDouble(scanner.nextLine());
+
+                    System.out.print("Бренд: ");
+                    String brand = scanner.nextLine();
+
+                    System.out.print("Кількість: ");
+                    int quantity = Integer.parseInt(scanner.nextLine());
+
+                    Clothes c = new Clothes(name, size, color, price, brand, quantity);
+                    list.add(c);
+
+                    System.out.println("✔ Річ додано!");
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Помилка: введіть правильне число!");
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Помилка: " + e.getMessage());
+                }
+            }
+
+            else if (choice == 2) {
+                if (list.isEmpty()) {
+                    System.out.println("Список порожній!");
+                } else {
+                    System.out.println("\nСписок речей:");
+                    for (Clothes c : list) {
+                        System.out.println(c);
+                    }
+                }
+            }
+
+            else if (choice == 0) {
+                System.out.println("Вихід...");
+                break;
+            }
+
+            else {
+                System.out.println("Невірний вибір!");
+            }
         }
 
         scanner.close();
