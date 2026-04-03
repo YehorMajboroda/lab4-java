@@ -10,10 +10,10 @@ public class Main {
         ArrayList<Clothes> list = new ArrayList<>();
 
         while (true) {
-            System.out.println("\n===== МЕНЮ =====");
-            System.out.println("1 - Додати річ");
-            System.out.println("2 - Показати всі речі");
-            System.out.println("0 - Вийти");
+            System.out.println("\n МЕНЮ ");
+            System.out.println("1  Додати річ");
+            System.out.println("2  Показати всі речі");
+            System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
             String input = scanner.nextLine();
@@ -50,7 +50,7 @@ public class Main {
                     Clothes c = new Clothes(name, size, color, price, brand, quantity);
                     list.add(c);
 
-                    System.out.println("✔ Річ додано!");
+                    System.out.println(" Річ додано!");
 
                 } catch (NumberFormatException e) {
                     System.out.println("Помилка: введіть правильне число!");
@@ -71,7 +71,7 @@ public class Main {
             }
 
             else if (choice == 0) {
-                System.out.println("Вихід...");
+                System.out.println("Вихід");
                 break;
             }
 
