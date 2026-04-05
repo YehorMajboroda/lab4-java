@@ -1,18 +1,18 @@
 package com.yehor.lab4;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in, "UTF-8");
-        ArrayList<Clothes> list = new ArrayList<>();
+        Wardrobe wardrobe = new Wardrobe(); // +++
 
         while (true) {
             System.out.println("\n МЕНЮ ");
             System.out.println("1  Додати річ");
             System.out.println("2  Показати всі речі");
+            System.out.println("3  Кількість створених об'єктів"); // +++
             System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
@@ -32,11 +32,11 @@ public class Main {
                     System.out.print("Назва: ");
                     String name = scanner.nextLine();
 
-                    System.out.print("Розмір: ");
-                    String size = scanner.nextLine();
+                    System.out.print("Розмір (XS,S,M,L,XL): "); // +++
+                    Size size = Size.valueOf(scanner.nextLine().toUpperCase()); // +++
 
-                    System.out.print("Колір: ");
-                    String color = scanner.nextLine();
+                    System.out.print("Колір (RED,BLUE,BLACK,WHITE,GREEN): "); // +++
+                    Color color = Color.valueOf(scanner.nextLine().toUpperCase()); // +++
 
                     System.out.print("Ціна: ");
                     double price = Double.parseDouble(scanner.nextLine());
@@ -48,9 +48,9 @@ public class Main {
                     int quantity = Integer.parseInt(scanner.nextLine());
 
                     Clothes c = new Clothes(name, size, color, price, brand, quantity);
-                    list.add(c);
+                    wardrobe.addClothes(c); // +++
 
-                    System.out.println(" Річ додано!");
+                    System.out.println("Річ додано!");
 
                 } catch (NumberFormatException e) {
                     System.out.println("Помилка: введіть правильне число!");
@@ -60,14 +60,11 @@ public class Main {
             }
 
             else if (choice == 2) {
-                if (list.isEmpty()) {
-                    System.out.println("Список порожній!");
-                } else {
-                    System.out.println("\nСписок речей:");
-                    for (Clothes c : list) {
-                        System.out.println(c);
-                    }
-                }
+                wardrobe.showAll(); // +++
+            }
+
+            else if (choice == 3) { // +++
+                System.out.println("Кількість об'єктів: " + Clothes.getCount());
             }
 
             else if (choice == 0) {
