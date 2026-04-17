@@ -10,7 +10,7 @@ public class Pants extends Clothes { // 7
     }
 
     @Override
-    public String toString() { // 7 поліморфізм
+    public String toString() { // 7 поліморфізмм
         return "Pants{" +
                 "type='" + type + '\'' +
                 "} " + super.toString();
