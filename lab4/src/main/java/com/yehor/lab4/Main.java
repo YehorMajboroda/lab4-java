@@ -13,7 +13,7 @@ public class Main {
             System.out.println("1  Додати Clothes"); // 7
             System.out.println("2  Додати Pants");   // 7
             System.out.println("3  Додати Shirts");  // 7
-            System.out.println("4  Показати всі");   // 7
+            System.out.println("4  Показати всі");   
             System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
