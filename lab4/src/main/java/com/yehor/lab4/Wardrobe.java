@@ -3,9 +3,7 @@ package com.yehor.lab4;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Клас Wardrobe агрегує Clothes
- */
+
 public class Wardrobe { // +++
 
     private List<Clothes> clothesList = new ArrayList<>(); // +++

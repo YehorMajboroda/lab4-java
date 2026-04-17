@@ -8,17 +8,14 @@ import java.util.Objects;
 public class Clothes {
 
     private String name;
-    private Size size;          // +++
-    private Color color;        // +++
+    private Size size;
+    private Color color;
     private double price;
     private String brand;
     private int quantity;
 
-    private static int count = 0; // +++ статичний лічильник
+    // 7  ВИДАЛЕНО static count
 
-    /**
-     * Основний конструктор
-     */
     public Clothes(String name, Size size, Color color, double price, String brand, int quantity) {
         setName(name);
         setSize(size);
@@ -26,30 +23,14 @@ public class Clothes {
         setPrice(price);
         setBrand(brand);
         setQuantity(quantity);
-        count++; // +++
-    }
-
-    /**
-     * Конструктор копіювання
-     */
-    public Clothes(Clothes other) { // +++
-        this.name = other.name;
-        this.size = other.size;
-        this.color = other.color;
-        this.price = other.price;
-        this.brand = other.brand;
-        this.quantity = other.quantity;
-        count++; // +++
     }
 
     public String getName() { return name; }
-    public Size getSize() { return size; }     // +++
-    public Color getColor() { return color; }  // +++
+    public Size getSize() { return size; }
+    public Color getColor() { return color; }
     public double getPrice() { return price; }
     public String getBrand() { return brand; }
     public int getQuantity() { return quantity; }
-
-    public static int getCount() { return count; } // +++
 
     public void setName(String name) {
         if (name == null || name.isEmpty()) {
@@ -58,14 +39,14 @@ public class Clothes {
         this.name = name;
     }
 
-    public void setSize(Size size) { // +++
+    public void setSize(Size size) {
         if (size == null) {
             throw new IllegalArgumentException("Size cannot be null");
         }
         this.size = size;
     }
 
-    public void setColor(Color color) { // +++
+    public void setColor(Color color) {
         if (color == null) {
             throw new IllegalArgumentException("Color cannot be null");
         }
@@ -97,8 +78,8 @@ public class Clothes {
     public String toString() {
         return "Clothes{" +
                 "name='" + name + '\'' +
-                ", size=" + size +        // +++
-                ", color=" + color +      // +++
+                ", size=" + size +
+                ", color=" + color +
                 ", price=" + price +
                 ", brand='" + brand + '\'' +
                 ", quantity=" + quantity +
@@ -113,13 +94,13 @@ public class Clothes {
         return Double.compare(clothes.price, price) == 0 &&
                 quantity == clothes.quantity &&
                 Objects.equals(name, clothes.name) &&
-                size == clothes.size &&      // +++
-                color == clothes.color &&    // +++
+                size == clothes.size &&
+                color == clothes.color &&
                 Objects.equals(brand, clothes.brand);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, size, color, price, brand, quantity); // +++
+        return Objects.hash(name, size, color, price, brand, quantity);
     }
 }
