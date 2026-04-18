@@ -9,18 +9,21 @@ public class Main {
         Wardrobe wardrobe = new Wardrobe();
 
         while (true) {
-            System.out.println("\n МЕНЮ ");
-            System.out.println("1  Додати Clothes"); // 7
-            System.out.println("2  Додати Pants");   // 7
-            System.out.println("3  Додати Shirts");  // 7
-            System.out.println("4  Показати всі");   // 7
+            System.out.println("\n=== МЕНЮ ===");
+            System.out.println("1  Додати Clothes");
+            System.out.println("2  Додати Pants");
+            System.out.println("3  Додати Shirts");
+            System.out.println("4  Додати Jacket"); // 8
+            System.out.println("5  Додати Shoes");  // 8
+            System.out.println("6  Показати всі");
             System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
             try {
-                if (choice >= 1 && choice <= 3) {
+
+                if (choice >= 1 && choice <= 5) {
 
                     System.out.print("Назва: ");
                     String name = scanner.nextLine();
@@ -45,21 +48,33 @@ public class Main {
                     }
 
                     else if (choice == 2) {
-                        System.out.print("Тип (jeans/sport): "); // 7
+                        System.out.print("Тип (jeans/sport): ");
                         String type = scanner.nextLine();
                         wardrobe.addClothes(new Pants(name, size, color, price, brand, quantity, type));
                     }
 
                     else if (choice == 3) {
-                        System.out.print("Рукав (long/short): "); // 7
+                        System.out.print("Рукав (long/short): ");
                         String sleeve = scanner.nextLine();
                         wardrobe.addClothes(new Shirts(name, size, color, price, brand, quantity, sleeve));
+                    }
+
+                    else if (choice == 4) { // 8
+                        System.out.print("Є капюшон (true/false): ");
+                        boolean hood = Boolean.parseBoolean(scanner.nextLine());
+                        wardrobe.addClothes(new Jacket(name, size, color, price, brand, quantity, hood));
+                    }
+
+                    else if (choice == 5) { // 8
+                        System.out.print("Розмір взуття (число): ");
+                        int shoeSize = Integer.parseInt(scanner.nextLine());
+                        wardrobe.addClothes(new Shoes(name, size, color, price, brand, quantity, shoeSize));
                     }
 
                     System.out.println("Додано!");
                 }
 
-                else if (choice == 4) {
+                else if (choice == 6) {
                     wardrobe.showAll();
                 }
 
