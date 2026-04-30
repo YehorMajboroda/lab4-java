@@ -102,7 +102,7 @@ public class ClothesSearch {
         }
 
         if (!found) {
-            System.out.println("Нічого не знайдено!");
+            System.out.println("Нічого не знайдено!");//
         }
     }
 }
