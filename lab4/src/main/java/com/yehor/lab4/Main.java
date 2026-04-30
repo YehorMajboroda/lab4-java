@@ -1,6 +1,7 @@
 package com.yehor.lab4;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in, "UTF-8");
 
-        ArrayList<Clothes> list = new ArrayList<>();
+        List<Clothes> list = new ArrayList<>();
 
         FileLoader.load("input.txt", list);
 
@@ -22,6 +23,7 @@ public class Main {
             System.out.println("4  Додати Jacket");
             System.out.println("5  Додати Shoes");
             System.out.println("6  Показати всі");
+            System.out.println("7  Пошук об’єкта");
             System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
@@ -80,7 +82,7 @@ public class Main {
                             break;
                     }
 
-                    System.out.println(" Додано!");
+                    System.out.println("Додано!");
                 }
 
                 else if (choice == 6) {
@@ -94,12 +96,59 @@ public class Main {
                     }
                 }
 
-                else if (choice == 0) {
+                else if (choice == 7) {
 
+                    while (true) {
+
+                        System.out.println("\n=== ПОШУК ===");
+                        System.out.println("1 Пошук за брендом");
+                        System.out.println("2 Пошук за кольором");
+                        System.out.println("3 Пошук за розміром");
+                        System.out.println("4 Пошук за типом");
+                        System.out.println("0 Назад");
+
+                        System.out.print("Ваш вибір: ");
+                        int searchChoice = Integer.parseInt(scanner.nextLine());
+
+                        if (searchChoice == 0) break;
+
+                        switch (searchChoice) {
+
+                            case 1:
+                                System.out.print("Бренд: ");
+                                String brand = scanner.nextLine();
+                                ClothesSearch.byBrand(list, brand);
+                                break;
+
+                            case 2:
+                                System.out.print("Колір: ");
+                                Color color = Color.valueOf(scanner.nextLine().toUpperCase());
+                                ClothesSearch.byColor(list, color);
+                                break;
+
+                            case 3:
+                                System.out.print("Розмір: ");
+                                Size size = Size.valueOf(scanner.nextLine().toUpperCase());
+                                ClothesSearch.bySize(list, size);
+                                break;
+
+                            case 4:
+                                System.out.print("Тип (clothes/pants/shirts/jacket/shoes): ");
+                                String type = scanner.nextLine();
+                                ClothesSearch.byType(list, type);
+                                break;
+
+                            default:
+                                System.out.println("Невірний вибір!");
+                        }
+                    }
+                }
+
+                else if (choice == 0) {
 
                     FileSaver.save("input.txt", list);
 
-                    System.out.println(" Дані збережено. Вихід...");
+                    System.out.println("Дані збережено. Вихід...");
                     break;
                 }
 
@@ -108,7 +157,7 @@ public class Main {
                 }
 
             } catch (Exception e) {
-                System.out.println(" Помилка: " + e.getMessage());
+                System.out.println("Помилка: " + e.getMessage());
             }
         }
 
