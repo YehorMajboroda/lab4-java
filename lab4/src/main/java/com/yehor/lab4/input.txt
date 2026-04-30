@@ -1,0 +1,5 @@
+Clothes;TShirt;M;RED;25.5;Nike;10
+Pants;Jeans;L;BLUE;40;Levis;5;jeans
+Shirts;Shirt;S;WHITE;20;Zara;7;long
+Jacket;Winter;XL;BLACK;80;Adidas;3;true
+Shoes;Sneakers;M;WHITE;60;Puma;4;42
