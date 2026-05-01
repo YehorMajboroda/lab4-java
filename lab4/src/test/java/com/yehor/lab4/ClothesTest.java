@@ -1,13 +1,21 @@
 package com.yehor.lab4;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ClothesTest {
 
     @Test
     void shouldThrowExceptionWhenInvalidPrice() {
-        Clothes c = new Clothes("Shirt", "M", "Black", 100, "Nike", 5);
+
+        Clothes c = new Clothes(
+                "Tshirt",
+                Size.M,
+                Color.RED,
+                25,
+                "Nike",
+                10
+        );
 
         assertThrows(IllegalArgumentException.class, () -> {
             c.setPrice(-10);
@@ -16,8 +24,16 @@ class ClothesTest {
 
     @Test
     void shouldThrowExceptionWhenInvalidConstructor() {
+
         assertThrows(IllegalArgumentException.class, () -> {
-            new Clothes("", "M", "Black", -5, "", -1);
+            new Clothes(
+                    "",
+                    Size.M,
+                    Color.BLACK,
+                    -5,
+                    "",
+                    -1
+            );
         });
     }
 }

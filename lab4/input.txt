@@ -4,3 +4,4 @@ Shirts;Shirt;S;WHITE;20.0;Zara;7;long
 Jacket;Winter;XL;BLACK;80.0;Adidas;3;true
 Shoes;Sneakers;M;WHITE;60.0;Puma;4;42
 Pants;per;S;RED;22.0;lev;2;jeans
+Pants;bale;S;RED;30.0;bape;4;sport
