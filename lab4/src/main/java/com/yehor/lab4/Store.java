@@ -37,7 +37,7 @@ public class Store {
 
     public void showAll() {
         if (list.isEmpty()) {
-            System.out.println("Список порожній!");
+            System.out.println("Список порожній");
         } else {
             for (Clothes c : list) {
                 System.out.println(c);
@@ -57,7 +57,7 @@ public class Store {
             }
         }
 
-        if (!found) System.out.println("Нічого не знайдено!");
+        if (!found) System.out.println("Нічого не знайдено");
     }
 
     public void byColor(Color color) {
@@ -70,7 +70,7 @@ public class Store {
             }
         }
 
-        if (!found) System.out.println("Нічого не знайдено!");
+        if (!found) System.out.println("Нічого не знайдено");
     }
 
     public void bySize(Size size) {
