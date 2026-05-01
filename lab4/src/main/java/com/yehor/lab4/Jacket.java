@@ -21,4 +21,4 @@ public class Jacket extends Clothes {
                 "hasHood=" + hasHood +
                 "} " + super.toString();
     }
-}//
+}
