@@ -83,6 +83,6 @@ public class Store {
             }
         }
 
-        if (!found) System.out.println("Нічого не знайдено!");
+        if (!found) System.out.println("Нічого не знайдено");
     }
 }
