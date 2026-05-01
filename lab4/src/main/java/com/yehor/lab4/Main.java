@@ -16,7 +16,7 @@ public class Main {
         List<Clothes> temp = new ArrayList<>();
         FileLoader.load("input.txt", temp);
 
-        // переносимо в Store з урахуванням кількості
+        // переносимо в Store з урахуванням кількост
         for (Clothes c : temp) {
             store.addNewClothes(c, c.getQuantity());
         }
