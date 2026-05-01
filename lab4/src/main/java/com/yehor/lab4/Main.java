@@ -10,9 +10,16 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in, "UTF-8");
 
-        List<Clothes> list = new ArrayList<>();
+        Store store = new Store();
 
-        FileLoader.load("input.txt", list);
+        // тимчасовий список для читання з файлу
+        List<Clothes> temp = new ArrayList<>();
+        FileLoader.load("input.txt", temp);
+
+        // переносимо в Store з урахуванням кількості
+        for (Clothes c : temp) {
+            store.addNewClothes(c, c.getQuantity());
+        }
 
         while (true) {
 
@@ -54,31 +61,41 @@ public class Main {
                     switch (choice) {
 
                         case 1:
-                            list.add(new Clothes(name, size, color, price, brand, quantity));
+                            store.addNewClothes(
+                                    new Clothes(name, size, color, price, brand, quantity),
+                                    quantity);
                             break;
 
                         case 2:
                             System.out.print("Тип (jeans/sport): ");
                             String type = scanner.nextLine();
-                            list.add(new Pants(name, size, color, price, brand, quantity, type));
+                            store.addNewClothes(
+                                    new Pants(name, size, color, price, brand, quantity, type),
+                                    quantity);
                             break;
 
                         case 3:
                             System.out.print("Рукав (long/short): ");
                             String sleeve = scanner.nextLine();
-                            list.add(new Shirts(name, size, color, price, brand, quantity, sleeve));
+                            store.addNewClothes(
+                                    new Shirts(name, size, color, price, brand, quantity, sleeve),
+                                    quantity);
                             break;
 
                         case 4:
                             System.out.print("Є капюшон (true/false): ");
                             boolean hood = Boolean.parseBoolean(scanner.nextLine());
-                            list.add(new Jacket(name, size, color, price, brand, quantity, hood));
+                            store.addNewClothes(
+                                    new Jacket(name, size, color, price, brand, quantity, hood),
+                                    quantity);
                             break;
 
                         case 5:
                             System.out.print("Розмір взуття: ");
                             int shoeSize = Integer.parseInt(scanner.nextLine());
-                            list.add(new Shoes(name, size, color, price, brand, quantity, shoeSize));
+                            store.addNewClothes(
+                                    new Shoes(name, size, color, price, brand, quantity, shoeSize),
+                                    quantity);
                             break;
                     }
 
@@ -87,13 +104,7 @@ public class Main {
 
                 else if (choice == 6) {
 
-                    if (list.isEmpty()) {
-                        System.out.println("Список порожній!");
-                    } else {
-                        for (Clothes c : list) {
-                            System.out.println(c);
-                        }
-                    }
+                    store.showAll();
                 }
 
                 else if (choice == 7) {
@@ -117,25 +128,25 @@ public class Main {
                             case 1:
                                 System.out.print("Бренд: ");
                                 String brand = scanner.nextLine();
-                                ClothesSearch.byBrand(list, brand);
+                                store.byBrand(brand);
                                 break;
 
                             case 2:
                                 System.out.print("Колір: ");
                                 Color color = Color.valueOf(scanner.nextLine().toUpperCase());
-                                ClothesSearch.byColor(list, color);
+                                store.byColor(color);
                                 break;
 
                             case 3:
                                 System.out.print("Розмір: ");
                                 Size size = Size.valueOf(scanner.nextLine().toUpperCase());
-                                ClothesSearch.bySize(list, size);
+                                store.bySize(size);
                                 break;
 
                             case 4:
                                 System.out.print("Тип (clothes/pants/shirts/jacket/shoes): ");
                                 String type = scanner.nextLine();
-                                ClothesSearch.byType(list, type);
+                                ClothesSearch.byType(store.getAll(), type); // залишив як у тебе
                                 break;
 
                             default:
@@ -146,7 +157,7 @@ public class Main {
 
                 else if (choice == 0) {
 
-                    FileSaver.save("input.txt", list);
+                    FileSaver.save("input.txt", store.getAll());
 
                     System.out.println("Дані збережено. Вихід...");
                     break;
