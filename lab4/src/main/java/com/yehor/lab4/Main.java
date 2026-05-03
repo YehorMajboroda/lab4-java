@@ -147,7 +147,7 @@ public class Main {
                     }
                 }
 
-                //  ЛР14
+                //   ЛР14
                 else if (choice == 8) {
 
                     while (true) {
