@@ -8,7 +8,7 @@ public class Store {
 
     private List<Clothes> list = new ArrayList<>();
 
-    // ===== ДОДАВАННЯ =====
+    // ДОДАВАННЯ 
     public void addNewClothes(Clothes newClothes, int quantity) {
 
         for (Clothes c : list) {
