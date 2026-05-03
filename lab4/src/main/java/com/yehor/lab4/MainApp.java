@@ -165,7 +165,7 @@ public class MainApp extends Application {
             }
         });
 
-        // ===== LAYOUT =====
+        // ===== LAYOUT 
         VBox root = new VBox(
                 new Label("Name"), nameField,
                 new Label("Brand"), brandField,
