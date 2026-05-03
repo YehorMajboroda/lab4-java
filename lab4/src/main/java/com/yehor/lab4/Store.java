@@ -7,7 +7,7 @@ public class Store {
 
     private List<Clothes> list = new ArrayList<>();
 
-    // ===== ДОДАВАННЯ =====
+    // додавання з урахуванням кількості
     public void addNewClothes(Clothes newClothes, int quantity) {
 
         for (Clothes c : list) {
@@ -22,6 +22,7 @@ public class Store {
         list.add(newClothes);
     }
 
+    // перевірка "однаковості" товарів
     private boolean equalsClothes(Clothes c1, Clothes c2) {
 
         return c1.getName().equalsIgnoreCase(c2.getName()) &&
@@ -30,25 +31,23 @@ public class Store {
                c1.getColor() == c2.getColor();
     }
 
-    // ===== ВИВІД =====
-    public void showAll() {
-        if (list.isEmpty()) {
-            System.out.println("Список порожній");
-            return;
-        }
-
-        for (Clothes c : list) {
-            System.out.println(c);
-        }
-    }
-
     public List<Clothes> getAll() {
         return list;
     }
 
-    // ===== ПОШУКИ =====
-    public void byBrand(String brand) {
+    public void showAll() {
+        if (list.isEmpty()) {
+            System.out.println("Список порожній");
+        } else {
+            for (Clothes c : list) {
+                System.out.println(c);
+            }
+        }
+    }
 
+    // ===== ПОШУКИ =====
+
+    public void byBrand(String brand) {
         boolean found = false;
 
         for (Clothes c : list) {
@@ -62,7 +61,6 @@ public class Store {
     }
 
     public void byColor(Color color) {
-
         boolean found = false;
 
         for (Clothes c : list) {
@@ -76,7 +74,6 @@ public class Store {
     }
 
     public void bySize(Size size) {
-
         boolean found = false;
 
         for (Clothes c : list) {
@@ -87,43 +84,5 @@ public class Store {
         }
 
         if (!found) System.out.println("Нічого не знайдено");
-    }
-
-    // ===== ПРАВИЛЬНИЙ ПОШУК ПО ТИПУ =====
-    public void byType(String type) {
-
-        boolean found = false;
-
-        for (Clothes c : list) {
-
-            if (type.equalsIgnoreCase("clothes") && c.getClass() == Clothes.class) {
-                System.out.println(c);
-                found = true;
-            }
-
-            else if (type.equalsIgnoreCase("pants") && c instanceof Pants) {
-                System.out.println(c);
-                found = true;
-            }
-
-            else if (type.equalsIgnoreCase("shirts") && c instanceof Shirts) {
-                System.out.println(c);
-                found = true;
-            }
-
-            else if (type.equalsIgnoreCase("jacket") && c instanceof Jacket) {
-                System.out.println(c);
-                found = true;
-            }
-
-            else if (type.equalsIgnoreCase("shoes") && c instanceof Shoes) {
-                System.out.println(c);
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Нічого не знайдено");
-        }
     }
 }

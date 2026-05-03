@@ -29,8 +29,9 @@ public class FileLoader {
 
                     switch (type) {
 
+
                         case "Clothes":
-                            list.add(new Clothes(name, size, color, price, brand, quantity));
+                            list.add(new Shirts(name, size, color, price, brand, quantity, "default")); // +++
                             break;
 
                         case "Pants":
@@ -50,15 +51,18 @@ public class FileLoader {
                             list.add(new Shoes(name, size, color, price, brand, quantity,
                                     Integer.parseInt(p[7])));
                             break;
+
+                        default:
+                            System.out.println("Невідомий тип: " + type);
                     }
 
                 } catch (Exception e) {
-                    System.out.println(" Помилка рядка: " + line);
+                    System.out.println("Помилка рядка: " + line);
                 }
             }
 
         } catch (IOException e) {
-            System.out.println(" Помилка читання файлу!");
+            System.out.println("Помилка читання файлу!");
         }
     }
 }

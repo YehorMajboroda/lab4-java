@@ -1,6 +1,7 @@
 package com.yehor.lab4;
 
-public class Clothes {
+//  13 
+public abstract class Clothes implements Comparable<Clothes> { // +++
 
     private String name;
     private Size size;
@@ -61,6 +62,12 @@ public class Clothes {
         if (quantity < 0)
             throw new IllegalArgumentException("Quantity < 0");
         this.quantity = quantity;
+    }
+
+    // 13 
+    @Override
+    public int compareTo(Clothes o) { // +++
+        return this.name.compareToIgnoreCase(o.name);
     }
 
     @Override
