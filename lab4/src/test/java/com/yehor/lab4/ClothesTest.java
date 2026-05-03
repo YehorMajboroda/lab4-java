@@ -8,13 +8,14 @@ class ClothesTest {
     @Test
     void shouldThrowExceptionWhenInvalidPrice() {
 
-        Clothes c = new Clothes(
+        Clothes c = new Shirts(
                 "Tshirt",
                 Size.M,
                 Color.RED,
                 25,
                 "Nike",
-                10
+                10,
+                "long"
         );
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -26,13 +27,14 @@ class ClothesTest {
     void shouldThrowExceptionWhenInvalidConstructor() {
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new Clothes(
+            new Shirts(
                     "",
                     Size.M,
                     Color.BLACK,
                     -5,
                     "",
-                    -1
+                    -1,
+                    "long"
             );
         });
     }
