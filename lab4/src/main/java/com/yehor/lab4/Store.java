@@ -29,7 +29,7 @@ public class Store {
                 c1.getColor() == c2.getColor();
     }
 
-    // ===== GET ALL =====
+    //  GET ALL 
     public List<Clothes> getAll() {
         return list;
     }
