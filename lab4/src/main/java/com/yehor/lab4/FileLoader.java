@@ -65,4 +65,4 @@ public class FileLoader {
             System.out.println("Помилка читання файлу!");
         }
     }
-}/
+}
