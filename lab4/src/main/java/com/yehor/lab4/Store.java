@@ -2,16 +2,16 @@ package com.yehor.lab4;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Store {
 
     private List<Clothes> list = new ArrayList<>();
 
-    // додавання з урахуванням кількості
+    // ===== ДОДАВАННЯ =====
     public void addNewClothes(Clothes newClothes, int quantity) {
 
         for (Clothes c : list) {
-
             if (equalsClothes(c, newClothes)) {
                 c.setQuantity(c.getQuantity() + quantity);
                 return;
@@ -22,19 +22,19 @@ public class Store {
         list.add(newClothes);
     }
 
-    // перевірка "однаковості" товарів
     private boolean equalsClothes(Clothes c1, Clothes c2) {
-
         return c1.getName().equalsIgnoreCase(c2.getName()) &&
-               c1.getBrand().equalsIgnoreCase(c2.getBrand()) &&
-               c1.getSize() == c2.getSize() &&
-               c1.getColor() == c2.getColor();
+                c1.getBrand().equalsIgnoreCase(c2.getBrand()) &&
+                c1.getSize() == c2.getSize() &&
+                c1.getColor() == c2.getColor();
     }
 
+    // ===== GET ALL =====
     public List<Clothes> getAll() {
         return list;
     }
 
+    // ===== SHOW ALL =====
     public void showAll() {
         if (list.isEmpty()) {
             System.out.println("Список порожній");
@@ -44,10 +44,21 @@ public class Store {
             }
         }
     }
+    // ЛР16
+    public Clothes findByUuid(UUID uuid) {
 
-    // ===== ПОШУКИ =====
+        for (Clothes c : list) {
+            if (c.getUuid().equals(uuid)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    // ПОШУК
 
     public void byBrand(String brand) {
+
         boolean found = false;
 
         for (Clothes c : list) {
@@ -57,10 +68,13 @@ public class Store {
             }
         }
 
-        if (!found) System.out.println("Нічого не знайдено");
+        if (!found) {
+            System.out.println("Нічого не знайдено");
+        }
     }
 
     public void byColor(Color color) {
+
         boolean found = false;
 
         for (Clothes c : list) {
@@ -70,10 +84,13 @@ public class Store {
             }
         }
 
-        if (!found) System.out.println("Нічого не знайдено");
+        if (!found) {
+            System.out.println("Нічого не знайдено");
+        }
     }
 
     public void bySize(Size size) {
+
         boolean found = false;
 
         for (Clothes c : list) {
@@ -83,6 +100,8 @@ public class Store {
             }
         }
 
-        if (!found) System.out.println("Нічого не знайдено");
+        if (!found) {
+            System.out.println("Нічого не знайдено");
+        }
     }
 }

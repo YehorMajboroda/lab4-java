@@ -1,7 +1,10 @@
 package com.yehor.lab4;
 
-//  13 
-public abstract class Clothes implements Comparable<Clothes> { // +++
+import java.util.UUID;
+
+public abstract class Clothes implements Comparable<Clothes>, Identifiable {
+
+    private UUID uuid;
 
     private String name;
     private Size size;
@@ -13,6 +16,8 @@ public abstract class Clothes implements Comparable<Clothes> { // +++
     public Clothes(String name, Size size, Color color,
                    double price, String brand, int quantity) {
 
+        this.uuid = UUID.randomUUID(); // автоматичне створення UUID
+
         setName(name);
         setSize(size);
         setColor(color);
@@ -21,6 +26,13 @@ public abstract class Clothes implements Comparable<Clothes> { // +++
         setQuantity(quantity);
     }
 
+    // ===== UUID =====
+    @Override
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    // ===== getters =====
     public String getName() { return name; }
     public Size getSize() { return size; }
     public Color getColor() { return color; }
@@ -28,6 +40,7 @@ public abstract class Clothes implements Comparable<Clothes> { // +++
     public String getBrand() { return brand; }
     public int getQuantity() { return quantity; }
 
+    // ===== setters =====
     public void setName(String name) {
         if (name == null || name.isEmpty())
             throw new IllegalArgumentException("Name empty");
@@ -64,16 +77,18 @@ public abstract class Clothes implements Comparable<Clothes> { // +++
         this.quantity = quantity;
     }
 
-    // 13 
+    // ===== sorting =====
     @Override
-    public int compareTo(Clothes o) { // +++
+    public int compareTo(Clothes o) {
         return this.name.compareToIgnoreCase(o.name);
     }
 
+    // ===== toString (UUID обов'язково видно) =====
     @Override
     public String toString() {
         return "Clothes{" +
-                "name='" + name + '\'' +
+                "uuid=" + uuid +
+                ", name='" + name + '\'' +
                 ", size=" + size +
                 ", color=" + color +
                 ", price=" + price +
