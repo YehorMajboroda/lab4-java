@@ -7,7 +7,7 @@ public class Store {
 
     private List<Clothes> list = new ArrayList<>();
 
-    // ===== ADD =====
+    // ===== ADD ====
     public void addNewClothes(Clothes newClothes, int quantity) {
 
         for (Clothes c : list) {
