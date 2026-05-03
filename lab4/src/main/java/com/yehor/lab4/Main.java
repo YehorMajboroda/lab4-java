@@ -1,9 +1,9 @@
 package com.yehor.lab4;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Main {
 
@@ -29,29 +29,23 @@ public class Main {
             System.out.println("4  Додати Jacket");
             System.out.println("5  Додати Shoes");
             System.out.println("6  Показати всі");
-            System.out.println("7  Пошук (бренд/колір/розмір/тип)");
+            System.out.println("7  Пошук об’єкта");
             System.out.println("8  Сортування (Lambda)");
-            System.out.println("9  Пошук за UUID"); // +++ ЛР16
+            System.out.println("9  Модифікувати об’єкт");
+            System.out.println("10 Видалити об’єкт");
             System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
-
-            int choice;
-
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (Exception e) {
-                System.out.println("Помилка вводу!");
-                continue;
-            }
+            int choice = Integer.parseInt(scanner.nextLine());
 
             try {
 
                 if (choice == 1) {
-                    System.out.println("Clothes — базовий тип");
+                    System.out.println("Clothes — базовий тип. Використайте Shirts/Pants/Jacket/Shoes");
+                    continue;
                 }
 
-                else if (choice >= 2 && choice <= 5) {
+                if (choice >= 2 && choice <= 5) {
 
                     System.out.print("Назва: ");
                     String name = scanner.nextLine();
@@ -74,7 +68,7 @@ public class Main {
                     switch (choice) {
 
                         case 2:
-                            System.out.print("Тип: ");
+                            System.out.print("Тип (jeans/sport): ");
                             store.addNewClothes(
                                     new Pants(name, size, color, price, brand, quantity,
                                             scanner.nextLine()),
@@ -82,7 +76,7 @@ public class Main {
                             break;
 
                         case 3:
-                            System.out.print("Рукав: ");
+                            System.out.print("Рукав (long/short): ");
                             store.addNewClothes(
                                     new Shirts(name, size, color, price, brand, quantity,
                                             scanner.nextLine()),
@@ -90,7 +84,7 @@ public class Main {
                             break;
 
                         case 4:
-                            System.out.print("Капюшон (true/false): ");
+                            System.out.print("Є капюшон (true/false): ");
                             store.addNewClothes(
                                     new Jacket(name, size, color, price, brand, quantity,
                                             Boolean.parseBoolean(scanner.nextLine())),
@@ -113,7 +107,6 @@ public class Main {
                     store.showAll();
                 }
 
-                // ===== ПОШУКИ =====
                 else if (choice == 7) {
 
                     System.out.println("\n=== ПОШУК ===");
@@ -125,80 +118,148 @@ public class Main {
                     int sc = Integer.parseInt(scanner.nextLine());
 
                     if (sc == 1) {
-                        System.out.print("Бренд: ");
+                        System.out.print("Введіть бренд: ");
                         store.byBrand(scanner.nextLine());
 
                     } else if (sc == 2) {
-                        System.out.print("Колір: ");
+                        System.out.print("Введіть колір: ");
                         store.byColor(Color.valueOf(scanner.nextLine().toUpperCase()));
 
                     } else if (sc == 3) {
-                        System.out.print("Розмір: ");
+                        System.out.print("Введіть розмір: ");
                         store.bySize(Size.valueOf(scanner.nextLine().toUpperCase()));
 
                     } else if (sc == 4) {
-                        System.out.print("Тип: ");
+                        System.out.print("Введіть тип: ");
                         ClothesSearch.byType(store.getAll(), scanner.nextLine());
                     }
                 }
 
-                // ===== СОРТУВАННЯ =====
                 else if (choice == 8) {
 
-                    List<Clothes> sorted = new ArrayList<>(store.getAll());
+                    while (true) {
 
-                    System.out.println("\n1 - Name");
-                    System.out.println("2 - Price");
-                    System.out.println("3 - Brand");
+                        System.out.println("\n=== СОРТУВАННЯ ===");
+                        System.out.println("1. За назвою");
+                        System.out.println("2. За ціною");
+                        System.out.println("3. За брендом");
+                        System.out.println("0. Назад");
 
-                    int sortChoice = Integer.parseInt(scanner.nextLine());
+                        System.out.print("Ваш вибір: ");
+                        int sortChoice = Integer.parseInt(scanner.nextLine());
 
-                    switch (sortChoice) {
+                        if (sortChoice == 0) break;
 
-                        case 1:
-                            sorted.sort((a, b) ->
-                                    a.getName().compareToIgnoreCase(b.getName()));
-                            break;
+                        List<Clothes> sorted = new ArrayList<>(store.getAll());
 
-                        case 2:
-                            sorted.sort((a, b) ->
-                                    Double.compare(a.getPrice(), b.getPrice()));
-                            break;
-
-                        case 3:
-                            sorted.sort((a, b) ->
-                                    a.getBrand().compareToIgnoreCase(b.getBrand()));
-                            break;
-
-                        default:
-                            System.out.println("Невірно!");
+                        if (sorted.isEmpty()) {
+                            System.out.println("Список порожній");
                             continue;
-                    }
+                        }
 
-                    for (Clothes c : sorted) {
-                        System.out.println(c);
+                        switch (sortChoice) {
+
+                            case 1:
+                                Collections.sort(sorted,
+                                        (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+                                break;
+
+                            case 2:
+                                Collections.sort(sorted,
+                                        (o1, o2) -> Double.compare(o1.getPrice(), o2.getPrice()));
+                                break;
+
+                            case 3:
+                                Collections.sort(sorted,
+                                        (o1, o2) -> o1.getBrand().compareToIgnoreCase(o2.getBrand()));
+                                break;
+                        }
+
+                        System.out.println("\n=== ВІДСОРТОВАНИЙ СПИСОК ===");
+                        for (Clothes c : sorted) {
+                            System.out.println(c);
+                        }
                     }
                 }
 
-                // UUID ПОШУК 
+                // ===== UPDATE =====
                 else if (choice == 9) {
 
-                    System.out.print("Введіть UUID: ");
+                    System.out.print("Введіть назву: ");
+                    String name = scanner.nextLine();
 
-                    try {
-                        UUID uuid = UUID.fromString(scanner.nextLine());
+                    Clothes old = null;
 
-                        Clothes found = store.findByUuid(uuid);
-
-                        if (found != null) {
-                            System.out.println("\nЗНАЙДЕНО:");
-                            System.out.println(found);
-                        } else {
-                            System.out.println("Не знайдено!");
+                    for (Clothes c : store.getAll()) {
+                        if (c.getName().equalsIgnoreCase(name)) {
+                            old = c;
+                            break;
                         }
+                    }
 
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Некоректний UUID формат!");
+                    if (old == null) {
+                        System.out.println("Не знайдено!");
+                        continue;
+                    }
+
+                    System.out.print("Нова ціна: ");
+                    double price = Double.parseDouble(scanner.nextLine());
+
+                    Clothes updated = null;
+
+                    if (old instanceof Pants) {
+                        Pants p = (Pants) old;
+                        updated = new Pants(p.getName(), p.getSize(), p.getColor(),
+                                price, p.getBrand(), p.getQuantity(), p.getType());
+                    }
+                    else if (old instanceof Shirts) {
+                        Shirts s = (Shirts) old;
+                        updated = new Shirts(s.getName(), s.getSize(), s.getColor(),
+                                price, s.getBrand(), s.getQuantity(), s.getSleeveType());
+                    }
+                    else if (old instanceof Jacket) {
+                        Jacket j = (Jacket) old;
+                        updated = new Jacket(j.getName(), j.getSize(), j.getColor(),
+                                price, j.getBrand(), j.getQuantity(), j.isHasHood());
+                    }
+                    else if (old instanceof Shoes) {
+                        Shoes sh = (Shoes) old;
+                        updated = new Shoes(sh.getName(), sh.getSize(), sh.getColor(),
+                                price, sh.getBrand(), sh.getQuantity(), sh.getShoeSize());
+                    }
+
+                    boolean result = store.update(old, updated);
+
+                    System.out.println(result ? "Оновлено!" : "Не оновлено!");
+                }
+
+                // ===== DELETE =====
+                else if (choice == 10) {
+
+                    System.out.print("Введіть назву: ");
+                    String name = scanner.nextLine();
+
+                    Clothes target = null;
+
+                    for (Clothes c : store.getAll()) {
+                        if (c.getName().equalsIgnoreCase(name)) {
+                            target = c;
+                            break;
+                        }
+                    }
+
+                    if (target == null) {
+                        System.out.println("Не знайдено!");
+                        continue;
+                    }
+
+                    System.out.print("Підтвердити (yes/no): ");
+                    String confirm = scanner.nextLine();
+
+                    if (confirm.equalsIgnoreCase("yes")) {
+
+                        boolean result = store.delete(target);
+                        System.out.println(result ? "Видалено!" : "Не видалено!");
                     }
                 }
 
