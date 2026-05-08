@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class ClothesTest {
 
     @Test
-    void shouldThrowExceptionWhenInvalidPrice() {
+    void shouldThrowExceptionWhenInvalidPrice() { // тест: неправильна ціна
 
         Clothes c = new Shirts(
                 "Tshirt",
@@ -18,15 +18,15 @@ class ClothesTest {
                 "long"
         );
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidFieldValueException.class, () -> { // перевірка винятку
             c.setPrice(-10);
         });
     }
 
     @Test
-    void shouldThrowExceptionWhenInvalidConstructor() {
+    void shouldThrowExceptionWhenInvalidConstructor() { // тест: некоректні дані в конструкторі
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidFieldValueException.class, () -> { // очікуємо виняток
             new Shirts(
                     "",
                     Size.M,

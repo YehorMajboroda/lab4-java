@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Store {
 
-    private List<Clothes> list = new ArrayList<>();
+    private List<Clothes> list = new ArrayList<>(); // список одягу
 
-    // ADD 
-    public void addNewClothes(Clothes newClothes, int quantity) {
+    // ADD
+    public void addNewClothes(Clothes newClothes, int quantity) { // додавання одягу
 
         for (Clothes c : list) {
 
@@ -23,11 +23,11 @@ public class Store {
     }
 
     // ===== SHOW =====
-    public List<Clothes> getAll() {
+    public List<Clothes> getAll() { // отримати всі елементи
         return list;
     }
 
-    public void showAll() {
+    public void showAll() { // вивід всіх елементів
 
         if (list.isEmpty()) {
             System.out.println("Список порожній");
@@ -39,11 +39,11 @@ public class Store {
         }
     }
 
-    // ===== UPDATE (ЛР17) =====
-    public boolean update(Clothes oldObj, Clothes newObj) {
+    // ===== UPDATE (ЛР18) =====
+    public boolean update(Clothes oldObj, Clothes newObj) { // оновлення об’єкта
 
         if (list.isEmpty()) {
-            return false;
+            throw new ObjectNotFoundException("Список порожній"); // виняток якщо список пустий
         }
 
         for (int i = 0; i < list.size(); i++) {
@@ -54,14 +54,14 @@ public class Store {
             }
         }
 
-        return false;
+        throw new ObjectNotFoundException("Об'єкт не знайдено для оновлення"); // виняток якщо не знайдено
     }
 
-    // ===== DELETE (ЛР17) =====
-    public boolean delete(Clothes obj) {
+    // ===== DELETE (ЛР18) =====
+    public boolean delete(Clothes obj) { // видалення об’єкта
 
         if (list.isEmpty()) {
-            return false;
+            throw new ObjectNotFoundException("Список порожній"); // виняток якщо пустий
         }
 
         for (int i = 0; i < list.size(); i++) {
@@ -72,11 +72,11 @@ public class Store {
             }
         }
 
-        return false;
+        throw new ObjectNotFoundException("Об'єкт не знайдено для видалення"); // виняток якщо не знайдено
     }
 
     // ===== SEARCH BASE =====
-    private boolean equalsClothes(Clothes c1, Clothes c2) {
+    private boolean equalsClothes(Clothes c1, Clothes c2) { // порівняння одягу
 
         return c1.getName().equalsIgnoreCase(c2.getName()) &&
                 c1.getBrand().equalsIgnoreCase(c2.getBrand()) &&
@@ -84,7 +84,7 @@ public class Store {
                 c1.getColor() == c2.getColor();
     }
 
-    public void byBrand(String brand) {
+    public void byBrand(String brand) { // пошук за брендом
 
         boolean found = false;
 
@@ -98,7 +98,7 @@ public class Store {
         if (!found) System.out.println("Нічого не знайдено");
     }
 
-    public void byColor(Color color) {
+    public void byColor(Color color) { // пошук за кольором
 
         boolean found = false;
 
@@ -112,7 +112,7 @@ public class Store {
         if (!found) System.out.println("Нічого не знайдено");
     }
 
-    public void bySize(Size size) {
+    public void bySize(Size size) { // пошук за розміром
 
         boolean found = false;
 

@@ -7,20 +7,20 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // головний метод програми
 
-        Scanner scanner = new Scanner(System.in, "UTF-8");
-        Store store = new Store();
+        Scanner scanner = new Scanner(System.in, "UTF-8"); // ввід з клавіатури
+        Store store = new Store(); // створення магазину (контейнеру)
 
         // Завантаження з файлу
-        List<Clothes> temp = new ArrayList<>();
-        FileLoader.load("input.txt", temp);
+        List<Clothes> temp = new ArrayList<>(); // тимчасовий список
+        FileLoader.load("input.txt", temp); // читання з файлу
 
-        for (Clothes c : temp) {
+        for (Clothes c : temp) { // перенесення у Store
             store.addNewClothes(c, c.getQuantity());
         }
 
-        while (true) {
+        while (true) { // головний цикл меню
 
             System.out.println("\n=== МЕНЮ ===");
             System.out.println("1  Додати Clothes (заблоковано)");
@@ -36,16 +36,17 @@ public class Main {
             System.out.println("0  Вийти");
 
             System.out.print("Ваш вибір: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = Integer.parseInt(scanner.nextLine()); // вибір користувача
 
             try {
 
-                if (choice == 1) {
+                if (choice == 1) { // заборонений базовий тип
                     System.out.println("Clothes — базовий тип. Використайте Shirts/Pants/Jacket/Shoes");
                     continue;
                 }
 
-                if (choice >= 2 && choice <= 5) {
+                // ===== ADD =====
+                if (choice >= 2 && choice <= 5) { // додавання одягу
 
                     System.out.print("Назва: ");
                     String name = scanner.nextLine();
@@ -103,11 +104,13 @@ public class Main {
                     System.out.println("Додано!");
                 }
 
-                else if (choice == 6) {
+                // ===== SHOW =====
+                else if (choice == 6) { // показати всі
                     store.showAll();
                 }
 
-                else if (choice == 7) {
+                // ===== SEARCH =====
+                else if (choice == 7) { // пошук
 
                     System.out.println("\n=== ПОШУК ===");
                     System.out.println("1 Бренд");
@@ -135,7 +138,8 @@ public class Main {
                     }
                 }
 
-                else if (choice == 8) {
+                // ===== SORT =====
+                else if (choice == 8) { // сортування
 
                     while (true) {
 
@@ -175,7 +179,6 @@ public class Main {
                                 break;
                         }
 
-                        System.out.println("\n=== ВІДСОРТОВАНИЙ СПИСОК ===");
                         for (Clothes c : sorted) {
                             System.out.println(c);
                         }
@@ -183,87 +186,97 @@ public class Main {
                 }
 
                 // ===== UPDATE =====
-                else if (choice == 9) {
+                else if (choice == 9) { // оновлення
 
-                    System.out.print("Введіть назву: ");
-                    String name = scanner.nextLine();
+                    try {
 
-                    Clothes old = null;
+                        System.out.print("Введіть назву: ");
+                        String name = scanner.nextLine();
 
-                    for (Clothes c : store.getAll()) {
-                        if (c.getName().equalsIgnoreCase(name)) {
-                            old = c;
-                            break;
+                        Clothes old = null;
+
+                        for (Clothes c : store.getAll()) {
+                            if (c.getName().equalsIgnoreCase(name)) {
+                                old = c;
+                                break;
+                            }
                         }
-                    }
 
-                    if (old == null) {
-                        System.out.println("Не знайдено!");
-                        continue;
-                    }
+                        if (old == null) {
+                            System.out.println("Не знайдено!");
+                            continue;
+                        }
 
-                    System.out.print("Нова ціна: ");
-                    double price = Double.parseDouble(scanner.nextLine());
+                        System.out.print("Нова ціна: ");
+                        double price = Double.parseDouble(scanner.nextLine());
 
-                    Clothes updated = null;
+                        Clothes updated = null;
 
-                    if (old instanceof Pants) {
-                        Pants p = (Pants) old;
-                        updated = new Pants(p.getName(), p.getSize(), p.getColor(),
-                                price, p.getBrand(), p.getQuantity(), p.getType());
-                    }
-                    else if (old instanceof Shirts) {
-                        Shirts s = (Shirts) old;
-                        updated = new Shirts(s.getName(), s.getSize(), s.getColor(),
-                                price, s.getBrand(), s.getQuantity(), s.getSleeveType());
-                    }
-                    else if (old instanceof Jacket) {
-                        Jacket j = (Jacket) old;
-                        updated = new Jacket(j.getName(), j.getSize(), j.getColor(),
-                                price, j.getBrand(), j.getQuantity(), j.isHasHood());
-                    }
-                    else if (old instanceof Shoes) {
-                        Shoes sh = (Shoes) old;
-                        updated = new Shoes(sh.getName(), sh.getSize(), sh.getColor(),
-                                price, sh.getBrand(), sh.getQuantity(), sh.getShoeSize());
-                    }
+                        if (old instanceof Pants) {
+                            Pants p = (Pants) old;
+                            updated = new Pants(p.getName(), p.getSize(), p.getColor(),
+                                    price, p.getBrand(), p.getQuantity(), p.getType());
+                        }
+                        else if (old instanceof Shirts) {
+                            Shirts s = (Shirts) old;
+                            updated = new Shirts(s.getName(), s.getSize(), s.getColor(),
+                                    price, s.getBrand(), s.getQuantity(), s.getSleeveType());
+                        }
+                        else if (old instanceof Jacket) {
+                            Jacket j = (Jacket) old;
+                            updated = new Jacket(j.getName(), j.getSize(), j.getColor(),
+                                    price, j.getBrand(), j.getQuantity(), j.isHasHood());
+                        }
+                        else if (old instanceof Shoes) {
+                            Shoes sh = (Shoes) old;
+                            updated = new Shoes(sh.getName(), sh.getSize(), sh.getColor(),
+                                    price, sh.getBrand(), sh.getQuantity(), sh.getShoeSize());
+                        }
 
-                    boolean result = store.update(old, updated);
+                        store.update(old, updated);
+                        System.out.println("Оновлено!");
 
-                    System.out.println(result ? "Оновлено!" : "Не оновлено!");
+                    } catch (ObjectNotFoundException e) {
+                        System.out.println("Помилка: " + e.getMessage());
+                    }
                 }
 
                 // ===== DELETE =====
-                else if (choice == 10) {
+                else if (choice == 10) { // видалення
 
-                    System.out.print("Введіть назву: ");
-                    String name = scanner.nextLine();
+                    try {
 
-                    Clothes target = null;
+                        System.out.print("Введіть назву: ");
+                        String name = scanner.nextLine();
 
-                    for (Clothes c : store.getAll()) {
-                        if (c.getName().equalsIgnoreCase(name)) {
-                            target = c;
-                            break;
+                        Clothes target = null;
+
+                        for (Clothes c : store.getAll()) {
+                            if (c.getName().equalsIgnoreCase(name)) {
+                                target = c;
+                                break;
+                            }
                         }
-                    }
 
-                    if (target == null) {
-                        System.out.println("Не знайдено!");
-                        continue;
-                    }
+                        if (target == null) {
+                            System.out.println("Не знайдено!");
+                            continue;
+                        }
 
-                    System.out.print("Підтвердити (yes/no): ");
-                    String confirm = scanner.nextLine();
+                        System.out.print("Підтвердити (yes/no): ");
+                        String confirm = scanner.nextLine();
 
-                    if (confirm.equalsIgnoreCase("yes")) {
+                        if (confirm.equalsIgnoreCase("yes")) {
+                            store.delete(target);
+                            System.out.println("Видалено!");
+                        }
 
-                        boolean result = store.delete(target);
-                        System.out.println(result ? "Видалено!" : "Не видалено!");
+                    } catch (ObjectNotFoundException e) {
+                        System.out.println("Помилка: " + e.getMessage());
                     }
                 }
 
-                else if (choice == 0) {
+                else if (choice == 0) { // вихід
                     FileSaver.save("input.txt", store.getAll());
                     System.out.println("Збережено. Вихід...");
                     break;
@@ -273,11 +286,11 @@ public class Main {
                     System.out.println("Невірний вибір!");
                 }
 
-            } catch (Exception e) {
+            } catch (Exception e) { // загальна помилка
                 System.out.println("Помилка: " + e.getMessage());
             }
         }
 
-        scanner.close();
+        scanner.close(); // закриття scanner
     }
 }
