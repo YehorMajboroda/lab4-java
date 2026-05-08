@@ -85,7 +85,7 @@ public abstract class Clothes implements Comparable<Clothes> {
         this.brand = brand;
     }
 
-    public void setQuantity(int quantity) { //  встановити кількість
+    public void setQuantity(int quantity) { // встановити кількість
 
         if (quantity < 0) {
             throw new InvalidFieldValueException(
